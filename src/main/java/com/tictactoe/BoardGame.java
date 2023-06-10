@@ -6,27 +6,47 @@ import java.util.List;
 public class BoardGame {
 
     private final List<String> boardGameList = new ArrayList<>();
-
+    int boardGameSizeInt;
     public List<String> getBoardGame() {
         return boardGameList;
     }
 
-    public void createBoardGame() {
-
-        for (int i = 0; i < 9; i++) {
+    public void createBoardGame(BoardGameChooser boardGameChooser) {
+        boardGameSizeInt = Integer.parseInt(boardGameChooser.boardGameSize);
+        int fieldsNumber = boardGameSizeInt * boardGameSizeInt;
+        for (int i = 0; i < fieldsNumber; i++) {
             boardGameList.add(" ");
         }
     }
 
-    public void printBoardGame() {
-        System.out.println();
-        System.out.println("    " + "A" + " " + "B" + " " + "C" + " ");
-        System.out.println("1  " + "|" + boardGameList.get(0) + "|" + boardGameList.get(1) + "|" + boardGameList.get(2) + "|");
-        System.out.println("2  " + "|" + boardGameList.get(3) + "|" + boardGameList.get(4) + "|" + boardGameList.get(5) + "|");
-        System.out.println("3  " + "|" + boardGameList.get(6) + "|" + boardGameList.get(7) + "|" + boardGameList.get(8) + "|");
-        System.out.println();
+    public void printBoardGame(BoardGameChooser boardGameChooser) {
+
+       if(boardGameSizeInt == 3) {
+           System.out.println("A " + "B " + "C ");
+       } else {
+           System.out.println("A " + "B " + "C " + "D " + "E " + "F " + "G " + "H " + "I " + "J ");
+       }
+
+       int rowNumber = 1;
+      int n = 0;
+
+
+        for (int kolumna = 0; kolumna < boardGameSizeInt; kolumna++) {
+
+            for (int wiersz = 0; wiersz < boardGameSizeInt; wiersz++) {
+                System.out.print(boardGameList.get(n++)+"|");
+            }
+            System.out.println(rowNumber++);
+        }
+
+
+
     }
 
-}
+
+
+    }
+
+
 
 

@@ -29,19 +29,20 @@ public class PlayerO {
         System.out.println("Player O move");
         System.out.println();
 
-        System.out.println("Insert column symbol: A, B or C");
+        System.out.println("Insert column symbol: ");
         setColumnO();
 
-        System.out.println("Insert row symbol: 1, 2 or 3");
+        System.out.println("Insert row symbol: ");
         setRowO();
     }
 
-    public int getIndexO() {
+    public void getIndexO(BoardGameChooser boardGameChooser) {
 
-        index = (columnO.charAt(0) - 'a' + 1) + (Integer.parseInt(getRowO()) - 1) * 3 - 1;
-        return index;
-
+        if(boardGameChooser.boardGameSize.equals("3")) {
+            index = (columnO.charAt(0) - 'a' + 1) + (Integer.parseInt(getRowO()) - 1) * 3 - 1;
+        } else {
+            index = (columnO.charAt(0) - 'a' + 1) + (Integer.parseInt(getRowO()) - 1) * 10 - 1;
+        }
     }
-
 }
 

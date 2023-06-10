@@ -48,8 +48,9 @@ class TicTacToeApplicationTests {
             //Given
             BoardGame boardGame = new BoardGame();
             SymbolSet symbolSet = new SymbolSet();
+            BoardGameChooser boardGameChooser = new BoardGameChooser();
             PlayerO playerO = new PlayerO();
-            boardGame.createBoardGame();
+            boardGame.createBoardGame(boardGameChooser);
             playerO.index = 4;
 
             //When
@@ -62,7 +63,7 @@ class TicTacToeApplicationTests {
 
             //Then
             Assertions.assertEquals("O", field);
-            boardGame.printBoardGame();
+            boardGame.printBoardGame(boardGameChooser);
         }
 
         @Test
@@ -154,9 +155,10 @@ class TicTacToeApplicationTests {
             BoardGame boardGame = new BoardGame();
             SymbolSet symbolSet = new SymbolSet();
             PlayerX playerX = new PlayerX();
-            boardGame.createBoardGame();
+            BoardGameChooser boardGameChooser = new BoardGameChooser();
+            boardGame.createBoardGame(boardGameChooser);
             playerX.index = 5;
-
+            boardGameChooser.boardGameSize = "3";
             //When
             try {
                 symbolSet.setTheSymbolX(boardGame, playerX);
@@ -167,7 +169,7 @@ class TicTacToeApplicationTests {
 
             //Then
             Assertions.assertEquals("X", field);
-            boardGame.printBoardGame();
+            boardGame.printBoardGame(boardGameChooser);
         }
 
         @Test
@@ -350,8 +352,8 @@ class TicTacToeApplicationTests {
             playerX.rowX ="2";
 
             //When&Then
-            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerO(playerO));
-            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerX(playerX));
+            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerO(playerO, boardGameMock));
+            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerX(playerX, boardGameMock));
         }
     }
 }
