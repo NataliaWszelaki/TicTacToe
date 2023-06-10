@@ -50,6 +50,7 @@ class TicTacToeApplicationTests {
             SymbolSet symbolSet = new SymbolSet();
             PlayerO playerO = new PlayerO();
             boardGame.createBoardGame();
+            playerO.index = 4;
 
             //When
             try {
@@ -57,10 +58,10 @@ class TicTacToeApplicationTests {
             } catch (NotEmptyFieldException e) {
                 throw new RuntimeException(e);
             }
-            String a1 = boardGame.getBoardGame().get(0);
+            String field = boardGame.getBoardGame().get(4);
 
             //Then
-            Assertions.assertEquals("O", a1);
+            Assertions.assertEquals("O", field);
             boardGame.printBoardGame();
         }
 
@@ -154,6 +155,7 @@ class TicTacToeApplicationTests {
             SymbolSet symbolSet = new SymbolSet();
             PlayerX playerX = new PlayerX();
             boardGame.createBoardGame();
+            playerX.index = 5;
 
             //When
             try {
@@ -161,10 +163,10 @@ class TicTacToeApplicationTests {
             } catch (NotEmptyFieldException e) {
                 throw new RuntimeException(e);
             }
-            String a1 = boardGame.getBoardGame().get(0);
+            String field = boardGame.getBoardGame().get(5);
 
             //Then
-            Assertions.assertEquals("X", a1);
+            Assertions.assertEquals("X", field);
             boardGame.printBoardGame();
         }
 

@@ -6,9 +6,9 @@ public class SymbolSet {
 
     public List<String> setTheSymbolO(BoardGame boardGame, PlayerO playerO) throws  NotEmptyFieldException {
 
-        if (boardGame.getBoardGame().get(playerO.getIndex()).equals(" ")) {
-            boardGame.getBoardGame().remove(playerO.getIndex());
-            boardGame.getBoardGame().add(playerO.getIndex(), "O");
+        if (boardGame.getBoardGame().get(playerO.index).equals(" ")) {
+            boardGame.getBoardGame().remove(playerO.index);
+            boardGame.getBoardGame().add(playerO.index, "O");
 
         } else {
             throw new NotEmptyFieldException();

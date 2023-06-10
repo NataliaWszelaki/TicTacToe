@@ -1,9 +1,10 @@
 package com.tictactoe;
 
-import java.util.Scanner;
+import java.util.Random;
+
 
 public class PlayerX {
-    Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
     protected int index;
     protected String columnX;
     protected String rowX;
@@ -13,7 +14,8 @@ public class PlayerX {
     }
 
     public void setColumnX() {
-        this.columnX = scanner.nextLine().toLowerCase();
+        String[] symbolsOfColumns = {"a", "b", "c"};
+        this.columnX = symbolsOfColumns[random.nextInt(symbolsOfColumns.length)];
     }
 
     public String getRowX() {
@@ -21,7 +23,8 @@ public class PlayerX {
     }
 
     public void setRowX() {
-        this.rowX = scanner.nextLine();
+        String[] symbolsOfRows = {"1", "2", "3"};
+        this.rowX = symbolsOfRows[random.nextInt(symbolsOfRows.length)];
     }
 
     public void communicationWithPlayerX() {
