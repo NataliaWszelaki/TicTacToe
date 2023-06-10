@@ -6,8 +6,13 @@ public class TicTacToeApplication {
     public static void main(String[] args) {
 
         BoardGame boardGame = new BoardGame();
-        UserO userO = new UserO();
-        UserX userX = new UserX();
+        PlayerO playerO = new PlayerO();
+        PlayerX playerX = new PlayerX();
+        GameMechanics gameMechanics = new GameMechanics();
+        SymbolSet symbolSet = new SymbolSet();
+        InputChecker inputChecker = new InputChecker();
+
+
 
 
         System.out.println("Welcome to tic-tac-toe!");
@@ -15,49 +20,49 @@ public class TicTacToeApplication {
         boardGame.createBoardGame();
         boardGame.printBoardGame();
 
-        while (!boardGame.theEnd) {
+        while (!gameMechanics.theEnd) {
 
-            boolean whileCondition1 = false;
-            while (!whileCondition1) {
+            boolean whileConditionO = false;
+            while (!whileConditionO) {
                 try {
-                    userO.communicationWithPlayerO();
-                    userO.inputCheckerO();
+                    playerO.communicationWithPlayerO();
+                    inputChecker.inputCheckerO(playerO);
                 } catch (NotExistingColumnOrRowException e) {
                     System.out.println("Try again!");
                     continue;
                 }
                 try {
-                    boardGame.setTheSymbolO(userO);
-                    whileCondition1 = true;
+                    symbolSet.setTheSymbolO(boardGame, playerO);
+                    whileConditionO = true;
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Field is not empty! Try again!");
                 }
             }
 
             boardGame.printBoardGame();
-            boardGame.theWinnerIs();
-            if(boardGame.theEnd) {
+            gameMechanics.whoIsTheWinnerIs(boardGame);
+            if(gameMechanics.theEnd) {
                 break;
             }
 
-            boolean whileCondition2 = false;
-            while (!whileCondition2) {
+            boolean whileConditionX = false;
+            while (!whileConditionX) {
                 try {
-                    userX.communicationWithPlayerX();
-                    userX.inputCheckerX();
+                    playerX.communicationWithPlayerX();
+                    inputChecker.inputCheckerX(playerX);
                 } catch (NotExistingColumnOrRowException e) {
                     System.out.println("Try again!");
                     continue;
                 }
                 try {
-                    boardGame.setTheSymbolX(userX);
-                    whileCondition2 = true;
+                    symbolSet.setTheSymbolX(boardGame, playerX);
+                    whileConditionX = true;
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Field is not empty! Try again!");
                 }
                 boardGame.printBoardGame();
-                boardGame.theWinnerIs();
-                if(boardGame.theEnd) {
+                gameMechanics.whoIsTheWinnerIs(boardGame);
+                if(gameMechanics.theEnd) {
                     break;
                 }
             }
