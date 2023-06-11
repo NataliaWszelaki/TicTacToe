@@ -16,12 +16,12 @@ public class BoardGameChooser {
         boardGameSize = scanner.next();
     }
 
-    public void whichBoardGameChecker() throws WrongBoardSize {
+    public void whichBoardGameChecker() throws WrongBoardGameSizeException {
 
         if (boardGameSize.equals("3") || boardGameSize.equals("10")) {
             System.out.println("Your choice is: " + boardGameSize);
         } else {
-            throw new WrongBoardSize();
+            throw new WrongBoardGameSizeException();
         }
     }
 }

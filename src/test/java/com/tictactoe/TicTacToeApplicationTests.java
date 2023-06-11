@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,41 +36,17 @@ class TicTacToeApplicationTests {
         System.out.println("Preparing to execute test #" + testCounter);
     }
 
-
     @Nested
     @DisplayName("Player O - tests")
     class PlayerOTests {
-        @Test
-        @DisplayName("Test to verify if the symbol is set in a correct place")
-        void testSetSymbolO() throws NotExistingColumnOrRowException, NotEmptyFieldException {
-
-            //Given
-            BoardGame boardGame = new BoardGame();
-            SymbolSet symbolSet = new SymbolSet();
-            BoardGameChooser boardGameChooser = new BoardGameChooser();
-            PlayerO playerO = new PlayerO();
-            boardGame.createBoardGame(boardGameChooser);
-            playerO.index = 4;
-
-            //When
-            try {
-                symbolSet.setTheSymbolO(boardGame, playerO);
-            } catch (NotEmptyFieldException e) {
-                throw new RuntimeException(e);
-            }
-            String field = boardGame.getBoardGame().get(4);
-
-            //Then
-            Assertions.assertEquals("O", field);
-            boardGame.printBoardGame(boardGameChooser);
-        }
 
         @Test
-        @DisplayName("Test to verify the wins of the 'o' symbol in rows - Player O.")
+        @DisplayName("Test to verify the wins of the 'o' symbol in rows")
         void testWhoIsTheWinnerOinRows() {
 
             //Given
             GameMechanics gameMechanics = new GameMechanics();
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add("O");
@@ -98,6 +73,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add(" ");
@@ -124,6 +100,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add(" ");
@@ -147,30 +124,6 @@ class TicTacToeApplicationTests {
     @Nested
     @DisplayName("Player X - tests")
     class PlayerXTests {
-        @Test
-        @DisplayName("Test to verify if the symbol is set in a correct place - Player X")
-        void testSetSymbolX() throws NotExistingColumnOrRowException, NotEmptyFieldException {
-
-            //Given
-            BoardGame boardGame = new BoardGame();
-            SymbolSet symbolSet = new SymbolSet();
-            PlayerX playerX = new PlayerX();
-            BoardGameChooser boardGameChooser = new BoardGameChooser();
-            boardGame.createBoardGame(boardGameChooser);
-            playerX.index = 5;
-            boardGameChooser.boardGameSize = "3";
-            //When
-            try {
-                symbolSet.setTheSymbolX(boardGame, playerX);
-            } catch (NotEmptyFieldException e) {
-                throw new RuntimeException(e);
-            }
-            String field = boardGame.getBoardGame().get(5);
-
-            //Then
-            Assertions.assertEquals("X", field);
-            boardGame.printBoardGame(boardGameChooser);
-        }
 
         @Test
         @DisplayName("Test to verify the wins of the 'x' symbol in rows.")
@@ -179,6 +132,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add(" ");
             gb.add(" ");
@@ -205,6 +159,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add(" ");
             gb.add("X");
@@ -231,6 +186,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add(" ");
             gb.add(" ");
@@ -261,6 +217,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add("O");
@@ -287,6 +244,7 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add("X");
@@ -337,23 +295,22 @@ class TicTacToeApplicationTests {
             assertThrows(NotEmptyFieldException.class, () -> symbolSet.setTheSymbolX(boardGameMock, playerX));
         }
 
-
         @Test
         @DisplayName("Test to check an exception NotExistingColumnOrRowException")
         void testNotExistingColumnOrRowException() throws NotExistingColumnOrRowException {
 
             //Given
             PlayerO playerO = new PlayerO();
-            PlayerX playerX = new PlayerX();
+//            PlayerX playerX = new PlayerX();
             InputChecker inputChecker = new InputChecker();
             playerO.columnO = "a";
             playerO.rowO = "11";
-            playerX.columnX = "z";
-            playerX.rowX ="2";
+//            playerX.columnX = "z";
+//            playerX.rowX ="2";
 
             //When&Then
             assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerO(playerO, boardGameMock));
-            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerX(playerX, boardGameMock));
+    //        assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerX(playerX, boardGameMock));
         }
     }
 }

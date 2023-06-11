@@ -9,18 +9,12 @@ public class PlayerX {
     protected String columnX;
     protected String rowX;
 
-    public String getColumnX() {
-        return columnX;
-    }
 
     public void setColumnX(BoardGame boardGame) {
         String[] symbolsOfColumns = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
         this.columnX = symbolsOfColumns[random.nextInt(boardGame.boardGameSizeInt)];
     }
 
-    public String getRowX() {
-        return rowX;
-    }
 
     public void setRowX(BoardGame boardGame) {
         String[] symbolsOfRows = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
@@ -31,22 +25,17 @@ public class PlayerX {
 
 
         System.out.println("Player X move");
-        System.out.println();
-
-        System.out.println("Insert column symbol: ");
-
         setColumnX(boardGame);
-
-        System.out.println("Insert row symbol: ");
         setRowX(boardGame);
+        System.out.println("Player X choice: " + columnX.toUpperCase() + rowX);
     }
 
     public void getIndexX(BoardGameChooser boardGameChooser) {
 
         if(boardGameChooser.boardGameSize.equals("3")) {
-            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(getRowX()) - 1) * 3;
+            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * 3;
         } else {
-            index =  (columnX.charAt(0) - 'a' + 1) + (Integer.parseInt(getRowX()) - 1) * 10 - 1;
+            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * 10;
         }
     }
 }
