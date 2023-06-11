@@ -39,7 +39,7 @@ public class TicTacToeApplication {
                     continue;
                 }
                 try {
-                    playerO.getIndexO(boardGameChooser);
+                    playerO.getIndexO(boardGame);
                     symbolSet.setTheSymbolO(boardGame, playerO);
                     whileConditionO = true;
                 } catch (NotEmptyFieldException e) {

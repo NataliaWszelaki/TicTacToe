@@ -50,7 +50,7 @@ public class GameMechanics {
             winnerList.add(diagonal1);
             winnerList.add(diagonal2);
         } else {
-            String diagonal3 = boardGame.getBoardGame().get(40) + boardGame.getBoardGame().get(n + 31) + boardGame.getBoardGame().get(n + 22)
+            String diagonal3 = boardGame.getBoardGame().get(40) + boardGame.getBoardGame().get(31) + boardGame.getBoardGame().get(n + 22)
                     + boardGame.getBoardGame().get(n + 13) + boardGame.getBoardGame().get(n + 4);
             String diagonal4 = boardGame.getBoardGame().get(50) + boardGame.getBoardGame().get(n + 41) + boardGame.getBoardGame().get(n + 32)
                     + boardGame.getBoardGame().get(n + 23) + boardGame.getBoardGame().get(n + 14) + boardGame.getBoardGame().get(n + 5);
@@ -67,10 +67,10 @@ public class GameMechanics {
                     + boardGame.getBoardGame().get(n + 63) + boardGame.getBoardGame().get(n + 54) + boardGame.getBoardGame().get(n + 45)
                     + boardGame.getBoardGame().get(n + 36) + boardGame.getBoardGame().get(n + 27) + boardGame.getBoardGame().get(n + 18)
                     + boardGame.getBoardGame().get(n + 9);
-            String diagonal9 = boardGame.getBoardGame().get(0) + boardGame.getBoardGame().get(n + 11) + boardGame.getBoardGame().get(n + 22)
-                    + boardGame.getBoardGame().get(n + 33) + boardGame.getBoardGame().get(n + 44) + boardGame.getBoardGame().get(n + 55)
-                    + boardGame.getBoardGame().get(n + 66) + boardGame.getBoardGame().get(n + 77) + boardGame.getBoardGame().get(n + 88)
-                    + boardGame.getBoardGame().get(n + 99);
+            String diagonal9 = boardGame.getBoardGame().get(0) + boardGame.getBoardGame().get(11) + boardGame.getBoardGame().get(22)
+                    + boardGame.getBoardGame().get(33) + boardGame.getBoardGame().get(44) + boardGame.getBoardGame().get(55)
+                    + boardGame.getBoardGame().get(66) + boardGame.getBoardGame().get(77) + boardGame.getBoardGame().get(88)
+                    + boardGame.getBoardGame().get(99);
             winnerList.add(diagonal3);
             winnerList.add(diagonal4);
             winnerList.add(diagonal5);

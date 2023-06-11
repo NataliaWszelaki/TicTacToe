@@ -30,13 +30,9 @@ public class PlayerO {
         System.out.println("Your choice: " + columnO.toUpperCase() + rowO);
     }
 
-    public void getIndexO(BoardGameChooser boardGameChooser) {
+    public void getIndexO(BoardGame boardGame) {
 
-        if(boardGameChooser.boardGameSize.equals("3")) {
-            index = columnO.charAt(0) - 'a' + (Integer.parseInt(rowO) - 1) * 3;
-        } else {
-            index = columnO.charAt(0) - 'a' + (Integer.parseInt(rowO) - 1) * 10;
-        }
+            index = columnO.charAt(0) - 'a' + (Integer.parseInt(rowO) - 1) * boardGame.boardGameSizeInt;
     }
 }
 

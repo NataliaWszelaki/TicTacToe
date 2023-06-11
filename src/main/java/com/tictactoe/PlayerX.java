@@ -30,12 +30,8 @@ public class PlayerX {
         System.out.println("Player X choice: " + columnX.toUpperCase() + rowX);
     }
 
-    public void getIndexX(BoardGameChooser boardGameChooser) {
+    public void getIndexX(BoardGame boardGame) {
 
-        if(boardGameChooser.boardGameSize.equals("3")) {
-            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * 3;
-        } else {
-            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * 10;
-        }
-    }
+            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * boardGame.boardGameSizeInt;
+      }
 }
