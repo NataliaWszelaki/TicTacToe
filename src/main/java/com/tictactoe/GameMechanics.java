@@ -3,113 +3,131 @@ package com.tictactoe;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class GameMechanics {
-    boolean theEnd = false;
-    String strRow;
-    String strColumn;
 
-    public String whoIsTheWinnerIs(BoardGame boardGame) {
+    int rowValue;
+    int columnValue;
+    int indexMin = 0;
+    int indexMax = 0;
+    List<String> lastMoveList = new ArrayList<>();
 
-        String theWinner = " ";
-        int m = 0;
-        int n = 0;
+    public List<String> getLastMoveList() {
+        return lastMoveList;
+    }
 
-        List<String> winnerList = new ArrayList<>();
+    public void horizontalO(PlayerO playerO, BoardGame boardGame) {
 
-        for (int k = 0; k < boardGame.boardGameSizeInt; k++) {
-            if (boardGame.boardGameSizeInt == 3) {
-                strRow = boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++);
-            } else {
-                strRow = boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++)
-                        + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++)
-                        + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++) + boardGame.getBoardGame().get(m++)
-                        + boardGame.getBoardGame().get(m++);
-            }
-            winnerList.add(strRow);
+        StringBuilder stringBuilder = new StringBuilder();
+        int h = (Integer.parseInt(playerO.rowO) - 1) * boardGame.boardGameSizeInt;
+        for (int i = 0; i < boardGame.boardGameSizeInt; i++) {
+            stringBuilder.append(boardGame.getBoardGame().get(h++));
         }
+        String sH = stringBuilder.toString();
+        System.out.println(sH);
+        lastMoveList.add(sH);
+    }
 
-        for (int k = 0; k < boardGame.boardGameSizeInt; k++) {
-            if (boardGame.boardGameSizeInt == 3) {
-                strColumn = boardGame.getBoardGame().get(n) + boardGame.getBoardGame().get(n + 3) + boardGame.getBoardGame().get(n + 6);
-            } else {
-                strColumn = boardGame.getBoardGame().get(n) + boardGame.getBoardGame().get(n + 10) + boardGame.getBoardGame().get(n + 20)
-                        + boardGame.getBoardGame().get(n + 30) + boardGame.getBoardGame().get(n + 40) + boardGame.getBoardGame().get(n + 50)
-                        + boardGame.getBoardGame().get(n + 60) + boardGame.getBoardGame().get(n + 70) + boardGame.getBoardGame().get(n + 80)
-                        + boardGame.getBoardGame().get(n + 90);
+    public void verticalO(PlayerO playerO, BoardGame boardGame) {
 
-            }
-            winnerList.add(strColumn);
-            n++;
+        StringBuilder stringBuilder = new StringBuilder();
+        int v = playerO.columnO.charAt(0) - 'a';
+        for (int i = 0; i < boardGame.boardGameSizeInt; i++) {
+            stringBuilder.append(boardGame.getBoardGame().get(v));
+            v = v + boardGame.boardGameSizeInt;
         }
+        String sV = stringBuilder.toString();
+        lastMoveList.add(sV);
+    }
 
-        if (boardGame.boardGameSizeInt == 3) {
-            String diagonal1 = boardGame.getBoardGame().get(0) + boardGame.getBoardGame().get(4) + boardGame.getBoardGame().get(8);
-            String diagonal2 = boardGame.getBoardGame().get(2) + boardGame.getBoardGame().get(4) + boardGame.getBoardGame().get(6);
-            winnerList.add(diagonal1);
-            winnerList.add(diagonal2);
-        } else {
-            String diagonal3 = boardGame.getBoardGame().get(40) + boardGame.getBoardGame().get(31) + boardGame.getBoardGame().get(n + 22)
-                    + boardGame.getBoardGame().get(n + 13) + boardGame.getBoardGame().get(n + 4);
-            String diagonal4 = boardGame.getBoardGame().get(50) + boardGame.getBoardGame().get(n + 41) + boardGame.getBoardGame().get(n + 32)
-                    + boardGame.getBoardGame().get(n + 23) + boardGame.getBoardGame().get(n + 14) + boardGame.getBoardGame().get(n + 5);
-            String diagonal5 = boardGame.getBoardGame().get(60) + boardGame.getBoardGame().get(n + 51) + boardGame.getBoardGame().get(n + 42)
-                    + boardGame.getBoardGame().get(n + 33) + boardGame.getBoardGame().get(n + 24) + boardGame.getBoardGame().get(n + 15)
-                    + boardGame.getBoardGame().get(n + 6);
-            String diagonal6 = boardGame.getBoardGame().get(70) + boardGame.getBoardGame().get(n + 61) + boardGame.getBoardGame().get(n + 52)
-                    + boardGame.getBoardGame().get(n + 43) + boardGame.getBoardGame().get(n + 34) + boardGame.getBoardGame().get(n + 25)
-                    + boardGame.getBoardGame().get(n + 16) + boardGame.getBoardGame().get(n + 7);
-            String diagonal7 = boardGame.getBoardGame().get(80) + boardGame.getBoardGame().get(n + 71) + boardGame.getBoardGame().get(n + 62)
-                    + boardGame.getBoardGame().get(n + 53) + boardGame.getBoardGame().get(n + 44) + boardGame.getBoardGame().get(n + 35)
-                    + boardGame.getBoardGame().get(n + 26) + boardGame.getBoardGame().get(n + 17) + boardGame.getBoardGame().get(n + 8);
-            String diagonal8 = boardGame.getBoardGame().get(90) + boardGame.getBoardGame().get(n + 81) + boardGame.getBoardGame().get(n + 72)
-                    + boardGame.getBoardGame().get(n + 63) + boardGame.getBoardGame().get(n + 54) + boardGame.getBoardGame().get(n + 45)
-                    + boardGame.getBoardGame().get(n + 36) + boardGame.getBoardGame().get(n + 27) + boardGame.getBoardGame().get(n + 18)
-                    + boardGame.getBoardGame().get(n + 9);
-            String diagonal9 = boardGame.getBoardGame().get(0) + boardGame.getBoardGame().get(11) + boardGame.getBoardGame().get(22)
-                    + boardGame.getBoardGame().get(33) + boardGame.getBoardGame().get(44) + boardGame.getBoardGame().get(55)
-                    + boardGame.getBoardGame().get(66) + boardGame.getBoardGame().get(77) + boardGame.getBoardGame().get(88)
-                    + boardGame.getBoardGame().get(99);
-            winnerList.add(diagonal3);
-            winnerList.add(diagonal4);
-            winnerList.add(diagonal5);
-            winnerList.add(diagonal6);
-            winnerList.add(diagonal7);
-            winnerList.add(diagonal8);
-            winnerList.add(diagonal9);
-        }
+    public void diagonalUpLeftToDownRightO(PlayerO playerO, BoardGame boardGame) {
 
-        if (boardGame.boardGameSizeInt == 3) {
-            for (String check : winnerList) {
-                if (check.equals("OOO")) {
-                    theWinner = "The Winner is Player O!";
-                    theEnd = true;
-                } else if (check.equals("XXX")) {
-                    theWinner = "The Winner is Player X!";
-                    theEnd = true;
-                } else if (!boardGame.getBoardGame().contains(" ")) {
-                    theWinner = "It's a tie!";
-                    theEnd = true;
-                }
-            }
-        } else {
-            for (String check : winnerList) {
-                if (check.equals("OOOOO")) {
-                    theWinner = "The Winner is Player O!";
-                    theEnd = true;
-                } else if (check.equals("XXXXX")) {
-                    theWinner = "The Winner is Player X!";
-                    theEnd = true;
-                } else if (!boardGame.getBoardGame().contains(" ")) {
-                    theWinner = "It's a tie!";
-                    theEnd = true;
-                }
-            }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (rowValue = Integer.parseInt(playerO.rowO), columnValue = playerO.columnO.charAt(0) - 'a'; rowValue > 0 && columnValue >= 0; rowValue--, columnValue--) {
+            indexMin = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
         }
-        System.out.println(theWinner);
-        return theWinner;
+         for (rowValue = Integer.parseInt(playerO.rowO), columnValue = playerO.columnO.charAt(0) - 'a'; rowValue <= boardGame.boardGameSizeInt && columnValue < boardGame.boardGameSizeInt; rowValue++, columnValue++) {
+            indexMax = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for(int i = indexMin; i <= indexMax; i = i + boardGame.boardGameSizeInt + 1){
+            stringBuilder.append(boardGame.getBoardGame().get(indexMin));
+            indexMin = indexMin + boardGame.boardGameSizeInt + 1;
+        }
+            String sd = stringBuilder.toString();
+            lastMoveList.add(sd);
+    }
+
+    public void diagonalDownLeftToUpRightO(PlayerO playerO, BoardGame boardGame) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (rowValue = Integer.parseInt(playerO.rowO), columnValue = playerO.columnO.charAt(0) - 'a'; rowValue <= boardGame.boardGameSizeInt && columnValue >= 0; rowValue++, columnValue--) {
+            indexMax = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for (rowValue = Integer.parseInt(playerO.rowO), columnValue = playerO.columnO.charAt(0) - 'a'; rowValue > 0 && columnValue < boardGame.boardGameSizeInt; rowValue--, columnValue++) {
+            indexMin = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for(int i = indexMax; i >= indexMin; i = i - boardGame.boardGameSizeInt + 1){
+            stringBuilder.append(boardGame.getBoardGame().get(indexMax));
+            indexMax = indexMax - boardGame.boardGameSizeInt + 1;
+        }
+        String sd2 = stringBuilder.toString();
+        lastMoveList.add(sd2);
+    }
+
+    public void horizontalX(PlayerX playerX, BoardGame boardGame) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int h = (Integer.parseInt(playerX.rowX) - 1) * boardGame.boardGameSizeInt;
+        for (int i = 0; i < boardGame.boardGameSizeInt; i++) {
+            stringBuilder.append(boardGame.getBoardGame().get(h++));
+        }
+        String sH = stringBuilder.toString();
+        lastMoveList.add(sH);
+    }
+
+    public void verticalX(PlayerX playerX, BoardGame boardGame) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int v = playerX.columnX.charAt(0) - 'a';
+        for (int i = 0; i < boardGame.boardGameSizeInt; i++) {
+            stringBuilder.append(boardGame.getBoardGame().get(v));
+            v = v + boardGame.boardGameSizeInt;
+        }
+        String sV = stringBuilder.toString();
+        lastMoveList.add(sV);
+    }
+
+    public void diagonalUpLeftToDownRightX(PlayerX playerX, BoardGame boardGame) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (rowValue = Integer.parseInt(playerX.rowX), columnValue = playerX.columnX.charAt(0) - 'a'; rowValue > 0 && columnValue >= 0; rowValue--, columnValue--) {
+            indexMin = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for (rowValue = Integer.parseInt(playerX.rowX), columnValue = playerX.columnX.charAt(0) - 'a'; rowValue <= boardGame.boardGameSizeInt && columnValue < boardGame.boardGameSizeInt; rowValue++, columnValue++) {
+            indexMax = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for(int i = indexMin; i <= indexMax; i = i + boardGame.boardGameSizeInt + 1){
+            stringBuilder.append(boardGame.getBoardGame().get(indexMin));
+            indexMin = indexMin + boardGame.boardGameSizeInt + 1;
+        }
+        String sd = stringBuilder.toString();
+        lastMoveList.add(sd);
+    }
+
+    public void diagonalDownLeftToUpRightX(PlayerX playerX, BoardGame boardGame) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (rowValue = Integer.parseInt(playerX.rowX), columnValue = playerX.columnX.charAt(0) - 'a'; rowValue <= boardGame.boardGameSizeInt && columnValue >= 0; rowValue++, columnValue--) {
+            indexMax = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for (rowValue = Integer.parseInt(playerX.rowX), columnValue = playerX.columnX.charAt(0) - 'a'; rowValue > 0 && columnValue < boardGame.boardGameSizeInt; rowValue--, columnValue++) {
+            indexMin = (rowValue - 1) * boardGame.boardGameSizeInt + columnValue;
+        }
+        for(int i = indexMax; i >= indexMin; i = i - boardGame.boardGameSizeInt + 1){
+            stringBuilder.append(boardGame.getBoardGame().get(indexMax));
+            indexMax = indexMax - boardGame.boardGameSizeInt + 1;
+        }
+        String sd2 = stringBuilder.toString();
+        lastMoveList.add(sd2);
     }
 }
-
 

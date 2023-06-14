@@ -11,7 +11,7 @@ public class TicTacToeApplication {
         PlayerX playerX = new PlayerX();
         SymbolSet symbolSet = new SymbolSet();
         GameMechanics gameMechanics = new GameMechanics();
-
+        TheWinnerResult theWinnerResult = new TheWinnerResult();
 
         boolean bgSize = false;
         while (!bgSize) {
@@ -25,9 +25,11 @@ public class TicTacToeApplication {
         }
 
         boardGame.createBoardGame(boardGameChooser);
-        boardGame.printBoardGame(boardGameChooser);
+        boardGame.printBoardGame();
+        boardGameChooser.setOWinningString(boardGame);
+        boardGameChooser.setXWinningString(boardGame);
 
-        while (!gameMechanics.theEnd) {
+        while (!theWinnerResult.theEnd) {
 
             boolean whileConditionO = false;
             while (!whileConditionO) {
@@ -45,32 +47,40 @@ public class TicTacToeApplication {
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Occupied! Try again!");
                 }
+                boardGame.printBoardGame();
+                gameMechanics.verticalO(playerO, boardGame);
+                gameMechanics.horizontalO(playerO, boardGame);
+                gameMechanics.diagonalUpLeftToDownRightO(playerO, boardGame);
+                gameMechanics.diagonalDownLeftToUpRightO(playerO, boardGame);
+                gameMechanics.listPrinter();
+                theWinnerResult.whoIsTheWinner(boardGame, boardGameChooser, gameMechanics);
+                if(theWinnerResult.theEnd) {
+                    break;
             }
 
-            boardGame.printBoardGame(boardGameChooser);
-            gameMechanics.whoIsTheWinnerIs(boardGame);
-            if(gameMechanics.theEnd) {
-                break;
+
             }
 
             boolean whileConditionX = false;
             while (!whileConditionX) {
                 playerX.communicationWithPlayerX(boardGame);
                 try {
-                    playerX.getIndexX(boardGameChooser);
+                    playerX.getIndexX(boardGame);
                     symbolSet.setTheSymbolX(boardGame, playerX);
                     whileConditionX = true;
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Occupied! Try again!");
                 }
-                boardGame.printBoardGame(boardGameChooser);
-                gameMechanics.whoIsTheWinnerIs(boardGame);
-                if(gameMechanics.theEnd) {
+                boardGame.printBoardGame();
+                gameMechanics.verticalX(playerX, boardGame);
+                gameMechanics.horizontalX(playerX, boardGame);
+                gameMechanics.diagonalDownLeftToUpRightX(playerX, boardGame);
+                gameMechanics.diagonalUpLeftToDownRightX(playerX, boardGame);
+                theWinnerResult.whoIsTheWinner(boardGame, boardGameChooser, gameMechanics);
+                if(theWinnerResult.theEnd) {
                     break;
                 }
             }
-
         }
-
     }
 }

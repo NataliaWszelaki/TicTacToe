@@ -8,7 +8,6 @@ public class PlayerO {
     protected String columnO;
     protected String rowO;
 
-
     public void setColumnO() {
 
         this.columnO = scanner.nextLine().toLowerCase();
@@ -19,7 +18,7 @@ public class PlayerO {
         this.rowO = scanner.nextLine();
     }
 
-    public void communicationWithPlayerO(BoardGame boardGame) throws NotExistingColumnOrRowException{
+    public void communicationWithPlayerO(BoardGame boardGame) throws NotExistingColumnOrRowException {
 
         System.out.println("Player O move");
         System.out.println();

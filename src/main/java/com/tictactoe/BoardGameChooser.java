@@ -5,8 +5,11 @@ import java.util.Scanner;
 public class BoardGameChooser {
 
     protected String boardGameSize;
+    String xWinningString;
+    String oWinningString;
 
     public void whichBoardGame() {
+
         System.out.println("Welcome to tic-tac-toe!");
         System.out.println();
         Scanner scanner = new Scanner(System.in);
@@ -24,5 +27,23 @@ public class BoardGameChooser {
             throw new WrongBoardGameSizeException();
         }
     }
+
+        public void setXWinningString(BoardGame boardGame) {
+
+            if (boardGame.boardGameSizeInt == 3) {
+                xWinningString = "XXX";
+            } else {
+                xWinningString = "XXXXX";
+            }
+        }
+
+        public void setOWinningString(BoardGame boardGame) {
+
+            if (boardGame.boardGameSizeInt == 3) {
+                oWinningString = "OOO";
+            } else {
+                oWinningString = "OOOOO";
+            }
+        }
 }
 

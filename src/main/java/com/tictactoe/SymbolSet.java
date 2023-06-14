@@ -14,6 +14,7 @@ public class SymbolSet {
     }
 
     public  void setTheSymbolX(BoardGame boardGame, PlayerX playerX) throws  NotEmptyFieldException {
+
         if (boardGame.getBoardGame().get(playerX.index).equals(" ")) {
             boardGame.getBoardGame().remove(playerX.index);
             boardGame.getBoardGame().add(playerX.index, "X");

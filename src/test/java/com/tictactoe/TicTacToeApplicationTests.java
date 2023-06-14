@@ -18,7 +18,7 @@ class TicTacToeApplicationTests {
     private static int testCounter = 0;
 
     @Mock
-    private BoardGame boardGameMock;
+    private GameMechanics gameMechanicsMock;
 
     @BeforeAll
     public static void beforeAllTests() {
@@ -46,21 +46,22 @@ class TicTacToeApplicationTests {
 
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            boardGameMock.boardGameSizeInt = 3;
+            BoardGame boardGame = new BoardGame();
+            gameMechanics.oWinningString = "OOO";
             List<String> gb = new ArrayList<>();
+            gb.add("OOO");
             gb.add("O");
             gb.add("O");
-            gb.add("O");
             gb.add(" ");
             gb.add(" ");
             gb.add(" ");
             gb.add(" ");
             gb.add(" ");
             gb.add(" ");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
+            when(gameMechanicsMock.getLastMoveList()).thenReturn(gb);
 
             //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
+            var winner = gameMechanics.whoIsTheWinner(boardGame);
 
             //Then
             Assertions.assertEquals("The Winner is Player O!", winner);
@@ -71,7 +72,7 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerOinColumns() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
+            FirstGameMechanics gameMechanics = new FirstGameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -98,7 +99,7 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerOinCrossLines() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
+            FirstGameMechanics gameMechanics = new FirstGameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -130,7 +131,7 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerXinRows() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
+            FirstGameMechanics gameMechanics = new FirstGameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -157,7 +158,7 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerXinColumns() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
+            FirstGameMechanics gameMechanics = new FirstGameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -184,7 +185,7 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerXinCrossLines() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
+            FirstGameMechanics gameMechanics = new FirstGameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -217,9 +218,13 @@ class TicTacToeApplicationTests {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGameMock = mock(BoardGame.class);
+            BoardGameChooser boardGameChooser = new BoardGameChooser();
+            TheWinnerResult theWinnerResult = new TheWinnerResult();
+            PlayerO playerO = new PlayerO();
+            PlayerX playerX = new PlayerX();
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
-            gb.add("O");
+            gb.add("OOO");
             gb.add("O");
             gb.add("X");
             gb.add("X");
@@ -231,7 +236,7 @@ class TicTacToeApplicationTests {
             when(boardGameMock.getBoardGame()).thenReturn(gb);
 
             //When
-            var tie1st = gameMechanics.whoIsTheWinnerIs(boardGameMock);
+            var tie1st = theWinnerResult.whoIsTheWinner(boardGameMock, boardGameChooser, gameMechanics);
 
             //Then
             Assertions.assertEquals("It's a tie!", tie1st);
@@ -243,6 +248,8 @@ class TicTacToeApplicationTests {
 
             //Given
             GameMechanics gameMechanics = new GameMechanics();
+            PlayerO playerO = new PlayerO();
+            PlayerX playerX = new PlayerX();
             BoardGame boardGameMock = mock(BoardGame.class);
             boardGameMock.boardGameSizeInt = 3;
             List<String> gb = new ArrayList<>();
@@ -258,7 +265,7 @@ class TicTacToeApplicationTests {
             when(boardGameMock.getBoardGame()).thenReturn(gb);
 
             //When
-            var tie2nd = gameMechanics.whoIsTheWinnerIs(boardGameMock);
+            var tie2nd = gameMechanics.whoIsTheWinner(boardGameMock);
 
             //Then
             Assertions.assertEquals("It's a tie!", tie2nd);
@@ -276,6 +283,7 @@ class TicTacToeApplicationTests {
             PlayerO playerO = new PlayerO();
             PlayerX playerX = new PlayerX();
             SymbolSet symbolSet = new SymbolSet();
+            BoardGame boardGameMock = mock(BoardGame.class);
             List<String> gb = new ArrayList<>();
             gb.add("O");
             gb.add("X");
@@ -300,17 +308,17 @@ class TicTacToeApplicationTests {
         void testNotExistingColumnOrRowException() throws NotExistingColumnOrRowException {
 
             //Given
+            BoardGame boardGameMock = mock(BoardGame.class);
             PlayerO playerO = new PlayerO();
-//            PlayerX playerX = new PlayerX();
+
             InputChecker inputChecker = new InputChecker();
             playerO.columnO = "a";
             playerO.rowO = "11";
-//            playerX.columnX = "z";
-//            playerX.rowX ="2";
+
 
             //When&Then
             assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerO(playerO, boardGameMock));
-    //        assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerX(playerX, boardGameMock));
+
         }
     }
 }

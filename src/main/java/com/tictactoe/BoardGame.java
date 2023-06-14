@@ -22,17 +22,15 @@ public class BoardGame {
         }
     }
 
-    public void printBoardGame(BoardGameChooser boardGameChooser) {
+    public void printBoardGame() {
 
         int rowNumber = 1;
         int n = 0;
-
         if(boardGameSizeInt == 3) {
             System.out.println(" A " + "B " + "C ");
         } else {
             System.out.println(" A " + "B " + "C " + "D " + "E " + "F " + "G " + "H " + "I " + "J ");
         }
-
         for (int k = 0; k < boardGameSizeInt; k++) {
             for (int r = 0; r < boardGameSizeInt; r++) {
                 System.out.print("|" + boardGameList.get(n++));
