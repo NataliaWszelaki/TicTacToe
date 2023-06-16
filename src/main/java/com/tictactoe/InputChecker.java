@@ -2,14 +2,14 @@ package com.tictactoe;
 
 public class InputChecker {
 
-    public void inputCheckerO(PlayerO playerO, BoardGame boardGame) throws NotExistingColumnOrRowException {
+    public void inputCheckerO(PlayerO playerO, BoardGameChooser boardGameChooser) throws OutOfBounceException {
 
-        if (playerO.columnO.equals("") || playerO.rowO.equals("")) {
-            throw new NotExistingColumnOrRowException();
+        if (String.valueOf(playerO.columnO).equals("") || String.valueOf(playerO.rowO).equals("")) {
+            throw new OutOfBounceException();
         }
-        if (!(playerO.columnO.charAt(0) - 'a' >= 0 && playerO.columnO.charAt(0) - 'a' < boardGame.boardGameSizeInt &&
-                Integer.parseInt(playerO.rowO) > 0 && Integer.parseInt(playerO.rowO) <= boardGame.boardGameSizeInt)) {
-            throw new NotExistingColumnOrRowException();
+        if (!(playerO.columnO >= 0 && playerO.columnO < boardGameChooser.boardGameSize &&
+                playerO.rowO > 0 && playerO.rowO <= boardGameChooser.boardGameSize)) {
+            throw new OutOfBounceException();
         }
     }
 }

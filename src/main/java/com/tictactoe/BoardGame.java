@@ -6,7 +6,6 @@ import java.util.List;
 public class BoardGame {
 
     private final List<String> boardGameList = new ArrayList<>();
-    protected int boardGameSizeInt;
 
     public List<String> getBoardGame() {
 
@@ -15,24 +14,23 @@ public class BoardGame {
 
     public void createBoardGame(BoardGameChooser boardGameChooser) {
 
-        boardGameSizeInt = Integer.parseInt(boardGameChooser.boardGameSize);
-        int fieldsNumber = boardGameSizeInt * boardGameSizeInt;
+        int fieldsNumber = boardGameChooser.boardGameSize * boardGameChooser.boardGameSize;
         for (int i = 0; i < fieldsNumber; i++) {
             boardGameList.add(" ");
         }
     }
 
-    public void printBoardGame() {
+    public void printBoardGame(BoardGameChooser boardGameChooser) {
 
         int rowNumber = 1;
         int n = 0;
-        if(boardGameSizeInt == 3) {
-            System.out.println(" A " + "B " + "C ");
-        } else {
-            System.out.println(" A " + "B " + "C " + "D " + "E " + "F " + "G " + "H " + "I " + "J ");
+        String [] letterArray = new String[] {" A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I ", "J "};
+        for (int i = 0; i < boardGameChooser.boardGameSize; i++) {
+            System.out.print(letterArray[i]);
         }
-        for (int k = 0; k < boardGameSizeInt; k++) {
-            for (int r = 0; r < boardGameSizeInt; r++) {
+        System.out.println();
+        for (int k = 0; k < boardGameChooser.boardGameSize; k++) {
+            for (int r = 0; r < boardGameChooser.boardGameSize; r++) {
                 System.out.print("|" + boardGameList.get(n++));
             }
             System.out.println("|" + rowNumber++);

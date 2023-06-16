@@ -6,6 +6,7 @@ public class TicTacToeApplication {
 
         BoardGameChooser boardGameChooser = new BoardGameChooser();
         BoardGame boardGame = new BoardGame();
+        WinningString winningString = new WinningString();
         PlayerO playerO = new PlayerO();
         InputChecker inputChecker = new InputChecker();
         PlayerX playerX = new PlayerX();
@@ -17,17 +18,26 @@ public class TicTacToeApplication {
         while (!bgSize) {
             try {
                 boardGameChooser.whichBoardGame();
-                boardGameChooser.whichBoardGameChecker();
                 bgSize = true;
-            } catch (WrongBoardGameSizeException e) {
+            } catch (OutOfBounceException e) {
+                System.out.println("Out of bounce! Try again!");
+            }
+        }
+
+        boolean winStr = false;
+        while (!winStr) {
+            try {
+                winningString.chooseLengthOfWinningString();
+                winStr = true;
+            } catch (OutOfBounceException e) {
                 System.out.println("Out of bounce! Try again!");
             }
         }
 
         boardGame.createBoardGame(boardGameChooser);
-        boardGame.printBoardGame();
-        boardGameChooser.setOWinningString(boardGame);
-        boardGameChooser.setXWinningString(boardGame);
+        boardGame.printBoardGame(boardGameChooser);
+        winningString.setOWinningString();
+        winningString.setXWinningString();
 
         while (!theWinnerResult.theEnd) {
 
@@ -35,48 +45,45 @@ public class TicTacToeApplication {
             while (!whileConditionO) {
                 try {
                     playerO.communicationWithPlayerO(boardGame);
-                    inputChecker.inputCheckerO(playerO, boardGame);
-                } catch (NotExistingColumnOrRowException e) {
+                    inputChecker.inputCheckerO(playerO, boardGameChooser);
+                } catch (OutOfBounceException e) {
                     System.out.println("Out of bounce! Try again!");
                     continue;
                 }
                 try {
-                    playerO.getIndexO(boardGame);
+                    playerO.getIndexO(boardGameChooser);
                     symbolSet.setTheSymbolO(boardGame, playerO);
                     whileConditionO = true;
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Occupied! Try again!");
                 }
-                boardGame.printBoardGame();
-                gameMechanics.verticalO(playerO, boardGame);
-                gameMechanics.horizontalO(playerO, boardGame);
-                gameMechanics.diagonalUpLeftToDownRightO(playerO, boardGame);
-                gameMechanics.diagonalDownLeftToUpRightO(playerO, boardGame);
-                gameMechanics.listPrinter();
-                theWinnerResult.whoIsTheWinner(boardGame, boardGameChooser, gameMechanics);
+                boardGame.printBoardGame(boardGameChooser);
+                gameMechanics.verticalO(playerO, boardGame, boardGameChooser);
+                gameMechanics.horizontalO(playerO, boardGame, boardGameChooser);
+                gameMechanics.diagonalUpLeftToDownRightO(playerO, boardGame, boardGameChooser);
+                gameMechanics.diagonalDownLeftToUpRightO(playerO, boardGame, boardGameChooser);
+                theWinnerResult.whoIsTheWinner(boardGame, gameMechanics, winningString);
                 if(theWinnerResult.theEnd) {
                     break;
-            }
-
-
+                }
             }
 
             boolean whileConditionX = false;
             while (!whileConditionX) {
-                playerX.communicationWithPlayerX(boardGame);
+                playerX.communicationWithPlayerX(boardGameChooser);
                 try {
-                    playerX.getIndexX(boardGame);
+                    playerX.getIndexX(boardGameChooser);
                     symbolSet.setTheSymbolX(boardGame, playerX);
                     whileConditionX = true;
                 } catch (NotEmptyFieldException e) {
                     System.out.println("Occupied! Try again!");
                 }
-                boardGame.printBoardGame();
-                gameMechanics.verticalX(playerX, boardGame);
-                gameMechanics.horizontalX(playerX, boardGame);
-                gameMechanics.diagonalDownLeftToUpRightX(playerX, boardGame);
-                gameMechanics.diagonalUpLeftToDownRightX(playerX, boardGame);
-                theWinnerResult.whoIsTheWinner(boardGame, boardGameChooser, gameMechanics);
+                boardGame.printBoardGame(boardGameChooser);
+                gameMechanics.verticalX(playerX, boardGame, boardGameChooser);
+                gameMechanics.horizontalX(playerX, boardGame, boardGameChooser);
+                gameMechanics.diagonalDownLeftToUpRightX(playerX, boardGame, boardGameChooser);
+                gameMechanics.diagonalUpLeftToDownRightX(playerX, boardGame, boardGameChooser);
+                theWinnerResult.whoIsTheWinner(boardGame, gameMechanics, winningString);
                 if(theWinnerResult.theEnd) {
                     break;
                 }

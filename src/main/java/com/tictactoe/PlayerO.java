@@ -5,33 +5,29 @@ import java.util.Scanner;
 public class PlayerO {
     Scanner scanner = new Scanner(System.in);
     protected int index;
-    protected String columnO;
-    protected String rowO;
+    protected int columnO;
+    protected int rowO;
+    protected String column;
 
     public void setColumnO() {
 
-        this.columnO = scanner.nextLine().toLowerCase();
+        this.columnO = column.charAt(0) - 'a';
     }
 
-    public void setRowO() {
-
-        this.rowO = scanner.nextLine();
-    }
-
-    public void communicationWithPlayerO(BoardGame boardGame) throws NotExistingColumnOrRowException {
+    public void communicationWithPlayerO(BoardGame boardGame) throws OutOfBounceException {
 
         System.out.println("Player O move");
-        System.out.println();
         System.out.println("Insert column symbol: ");
-        setColumnO();
+        column = scanner.nextLine();
         System.out.println("Insert row symbol: ");
-        setRowO();
-        System.out.println("Your choice: " + columnO.toUpperCase() + rowO);
+        rowO = scanner.nextInt();
+        System.out.println("Your choice: " + scanner.nextLine().toUpperCase() + rowO);
+        setColumnO();
     }
 
-    public void getIndexO(BoardGame boardGame) {
+    public void getIndexO(BoardGameChooser boardGameChooser) {
 
-            index = columnO.charAt(0) - 'a' + (Integer.parseInt(rowO) - 1) * boardGame.boardGameSizeInt;
+            index = columnO + (rowO - 1) * boardGameChooser.boardGameSize;
     }
 }
 

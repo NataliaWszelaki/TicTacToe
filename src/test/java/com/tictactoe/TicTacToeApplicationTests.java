@@ -18,7 +18,7 @@ class TicTacToeApplicationTests {
     private static int testCounter = 0;
 
     @Mock
-    private GameMechanics gameMechanicsMock;
+    private BoardGame boardGameMock;
 
     @BeforeAll
     public static void beforeAllTests() {
@@ -37,85 +37,25 @@ class TicTacToeApplicationTests {
     }
 
     @Nested
-    @DisplayName("Player O - tests")
+    @DisplayName("Player O - test")
     class PlayerOTests {
 
         @Test
-        @DisplayName("Test to verify the wins of the 'o' symbol in rows")
+        @DisplayName("Test to verify to check if Player O wins")
         void testWhoIsTheWinnerOinRows() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             BoardGame boardGame = new BoardGame();
-            gameMechanics.oWinningString = "OOO";
-            List<String> gb = new ArrayList<>();
-            gb.add("OOO");
-            gb.add("O");
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            when(gameMechanicsMock.getLastMoveList()).thenReturn(gb);
+            TheWinnerResult theWinnerResult = new TheWinnerResult();
+            GameMechanics gameMechanics = new GameMechanics();
+            gameMechanics.lastMoveList = new ArrayList<>();
+            gameMechanics.lastMoveList.add("OOOX");
+            WinningString winningString = new WinningString();
+            winningString.oWinningString = "OOO";
+            winningString.xWinningString = "XXX";
 
             //When
-            var winner = gameMechanics.whoIsTheWinner(boardGame);
-
-            //Then
-            Assertions.assertEquals("The Winner is Player O!", winner);
-        }
-
-        @Test
-        @DisplayName("Test to verify the wins of the 'o' symbol in columns.")
-        void testWhoIsTheWinnerOinColumns() {
-
-            //Given
-            FirstGameMechanics gameMechanics = new FirstGameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-             when(boardGameMock.getBoardGame()).thenReturn(gb);
-
-            //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
-
-            //Then
-            Assertions.assertEquals("The Winner is Player O!", winner);
-        }
-
-        @Test
-        @DisplayName("Test to verify the wins of the 'o' symbol in crossLines.")
-        void testWhoIsTheWinnerOinCrossLines() {
-
-            //Given
-            FirstGameMechanics gameMechanics = new FirstGameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("O");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("O");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
-
-            //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
+            var winner = theWinnerResult.whoIsTheWinner(boardGame, gameMechanics, winningString);
 
             //Then
             Assertions.assertEquals("The Winner is Player O!", winner);
@@ -131,146 +71,55 @@ class TicTacToeApplicationTests {
         void testWhoIsTheWinnerXinRows() {
 
             //Given
-            FirstGameMechanics gameMechanics = new FirstGameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("X");
-            gb.add("X");
-            gb.add("X");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add(" ");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
+            BoardGame boardGame = new BoardGame();
+            TheWinnerResult theWinnerResult = new TheWinnerResult();
+            GameMechanics gameMechanics = new GameMechanics();
+            gameMechanics.lastMoveList = new ArrayList<>();
+            gameMechanics.lastMoveList.add("OOXXXX");
+            WinningString winningString = new WinningString();
+            winningString.oWinningString = "OOOO";
+            winningString.xWinningString = "XXXX";
 
             //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
-
-            //Then
-            Assertions.assertEquals("The Winner is Player X!", winner);
-        }
-
-        @Test
-        @DisplayName("Test to verify the wins of the 'x' symbol in columns.")
-        void testWhoIsTheWinnerXinColumns() {
-
-            //Given
-            FirstGameMechanics gameMechanics = new FirstGameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
-
-            //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
-
-            //Then
-            Assertions.assertEquals("The Winner is Player X!", winner);
-        }
-
-        @Test
-        @DisplayName("Test to verify the wins of the 'x' symbol in crossLines.")
-        void testWhoIsTheWinnerXinCrossLines() {
-
-            //Given
-            FirstGameMechanics gameMechanics = new FirstGameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add(" ");
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            gb.add("X");
-            gb.add(" ");
-            gb.add("X");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
-
-            //When
-            var winner = gameMechanics.whoIsTheWinnerIs(boardGameMock);
+            var winner = theWinnerResult.whoIsTheWinner(boardGame, gameMechanics, winningString);
 
             //Then
             Assertions.assertEquals("The Winner is Player X!", winner);
         }
     }
 
+
     @Nested
     @DisplayName("Tie - tests")
-    class TieTests {
+    class TieTest {
         @Test
-        @DisplayName("Test to verify if the Tie results works correctly - 1st test")
-        void testWhoIsTheWinnerTie1stTest() {
+        @DisplayName("Test to verify if the Tie results works correctly")
+        void testWhoIsTheWinnerTie() {
 
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            BoardGameChooser boardGameChooser = new BoardGameChooser();
             TheWinnerResult theWinnerResult = new TheWinnerResult();
-            PlayerO playerO = new PlayerO();
-            PlayerX playerX = new PlayerX();
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add("OOO");
-            gb.add("O");
-            gb.add("X");
-            gb.add("X");
-            gb.add("O");
-            gb.add("O");
-            gb.add("O");
-            gb.add("X");
-            gb.add("X");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
+            GameMechanics gameMechanics = new GameMechanics();
+            gameMechanics.lastMoveList = new ArrayList<>();
+            gameMechanics.lastMoveList.add("OXO");
+            WinningString winningString = new WinningString();
+            winningString.oWinningString = "OOO";
+            winningString.xWinningString = "XXX";
+            List<String> boardGame = new ArrayList<>();
+            boardGame.add("O");
+            boardGame.add("O");
+            boardGame.add("X");
+            boardGame.add("X");
+            boardGame.add("O");
+            when(boardGameMock.getBoardGame()).thenReturn(boardGame);
 
             //When
-            var tie1st = theWinnerResult.whoIsTheWinner(boardGameMock, boardGameChooser, gameMechanics);
+            var tie1st = theWinnerResult.whoIsTheWinner(boardGameMock, gameMechanics, winningString);
 
             //Then
             Assertions.assertEquals("It's a tie!", tie1st);
         }
-
-        @Test
-        @DisplayName("Test to verify if the Tie results works correctly - 2nd test")
-        void testWhoIsTheWinnerTie2ndTest() {
-
-            //Given
-            GameMechanics gameMechanics = new GameMechanics();
-            PlayerO playerO = new PlayerO();
-            PlayerX playerX = new PlayerX();
-            BoardGame boardGameMock = mock(BoardGame.class);
-            boardGameMock.boardGameSizeInt = 3;
-            List<String> gb = new ArrayList<>();
-            gb.add("O");
-            gb.add("X");
-            gb.add("O");
-            gb.add("X");
-            gb.add("X");
-            gb.add("O");
-            gb.add("O");
-            gb.add("O");
-            gb.add("X");
-            when(boardGameMock.getBoardGame()).thenReturn(gb);
-
-            //When
-            var tie2nd = gameMechanics.whoIsTheWinner(boardGameMock);
-
-            //Then
-            Assertions.assertEquals("It's a tie!", tie2nd);
-        }
     }
+
 
     @Nested
     @DisplayName("Exceptions - tests")
@@ -304,24 +153,24 @@ class TicTacToeApplicationTests {
         }
 
         @Test
-        @DisplayName("Test to check an exception NotExistingColumnOrRowException")
-        void testNotExistingColumnOrRowException() throws NotExistingColumnOrRowException {
+        @DisplayName("Test to check an exception OutOfBounceException")
+        void testNotExistingColumnOrRowException() throws OutOfBounceException {
 
             //Given
-            BoardGame boardGameMock = mock(BoardGame.class);
+            BoardGameChooser boardGameChooser = new BoardGameChooser();
             PlayerO playerO = new PlayerO();
 
             InputChecker inputChecker = new InputChecker();
-            playerO.columnO = "a";
-            playerO.rowO = "11";
+            playerO.columnO = 2;
+            playerO.rowO = 11;
 
 
             //When&Then
-            assertThrows(NotExistingColumnOrRowException.class, () -> inputChecker.inputCheckerO(playerO, boardGameMock));
-
+            assertThrows(OutOfBounceException.class, () -> inputChecker.inputCheckerO(playerO, boardGameChooser));
         }
     }
 }
+
 
 
 

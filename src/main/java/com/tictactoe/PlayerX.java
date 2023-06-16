@@ -6,31 +6,33 @@ import java.util.Random;
 public class PlayerX {
     Random random = new Random();
     protected int index;
-    protected String columnX;
-    protected String rowX;
+    String column;
+    protected int columnX;
+    protected int rowX;
 
-    public void setColumnX(BoardGame boardGame) {
+    public void setColumnX(BoardGameChooser boardGameChooser) {
 
         String[] symbolsOfColumns = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
-        this.columnX = symbolsOfColumns[random.nextInt(boardGame.boardGameSizeInt)];
+        column = symbolsOfColumns[random.nextInt(boardGameChooser.boardGameSize)];
+        this.columnX = column.charAt(0) - 'a';
     }
 
-    public void setRowX(BoardGame boardGame) {
+    public void setRowX(BoardGameChooser boardGameChooser) {
 
-        String[] symbolsOfRows = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        this.rowX = symbolsOfRows[random.nextInt(boardGame.boardGameSizeInt)];
+        int[] symbolsOfRows = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        this.rowX = symbolsOfRows[random.nextInt(boardGameChooser.boardGameSize)];
     }
 
-    public void communicationWithPlayerX(BoardGame boardGame) {
+    public void communicationWithPlayerX(BoardGameChooser boardGameChooser) {
 
         System.out.println("Player X move");
-        setColumnX(boardGame);
-        setRowX(boardGame);
-        System.out.println("Player X choice: " + columnX.toUpperCase() + rowX);
+        setColumnX(boardGameChooser);
+        setRowX(boardGameChooser);
+        System.out.println("Player X choice: " + column.toUpperCase() + rowX);
     }
 
-    public void getIndexX(BoardGame boardGame) {
+    public void getIndexX(BoardGameChooser boardGameChooser) {
 
-            index =  columnX.charAt(0) - 'a' + (Integer.parseInt(rowX) - 1) * boardGame.boardGameSizeInt;
+            index =  columnX + (rowX - 1) * boardGameChooser.boardGameSize;
       }
 }
